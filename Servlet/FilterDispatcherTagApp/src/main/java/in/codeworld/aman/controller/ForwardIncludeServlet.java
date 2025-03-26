@@ -13,29 +13,27 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ForwardIncludeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	static {
+		System.out.println("LOADING :: ForwardIncludeServlet.class file is loading...");
+	}
+
+	public ForwardIncludeServlet() {
+        System.out.println("INSTANTIATION :: ForwardIncludeServlet object is instantiated...");
+    }
+	
+	public void init() throws ServletException {
+		System.out.println("INTIALIZATION :: ForwardIncludeServlet is initalized...");
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	
-	static {
-		System.out.println("ForwardIncludeServlet.class file is loading...");
-	}
-	
-	public ForwardIncludeServlet() {
-		System.out.println("ForwardIncludeServletInstantiation :: ForwardIncludeServlet object is created...");
-	}
-	
-	public void init() throws ServletException {
-		System.out.println("ForwardIncludeServletInitialization :: ForwardIncludeServlet.init()....");
-	}
-	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("ForwardIncludeServletRequestProcessing :: ForwardIncludeServlet.doGet()....");
+		System.out.println("REQUEST PROCESSING :: ForwardIncludeServlet.doFilter()");
 		RequestDispatcher rd = request.getRequestDispatcher("./test2");
-		rd.forward(request, response);
-		
+		rd.include(request, response);
 	}
 
 }

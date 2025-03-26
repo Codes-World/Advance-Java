@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
+//import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,29 +12,34 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class TargetServlet
  */
-public class ExceptionServlet extends HttpServlet {
+//@WebServlet("/target")
+public class TargetServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	static {
-		System.out.println("LOADING :: ExceptionServlet.class file is loading...");
+		System.out.println("LOADING :: TargetServlet.class file is loading...");
 	}
 
-	public ExceptionServlet() {
-        System.out.println("INSTANTIATION :: ExceptionServlet object is instantiated...");
+	public TargetServlet() {
+        System.out.println("INSTANTIATION :: TargetServlet object is instantiated...");
     }
 	
 	public void init() throws ServletException {
-		System.out.println("INTIALIZATION :: ExceptionServlet is initalized...");
+		System.out.println("INTIALIZATION :: TargetServlet is initalized...");
 	}
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("REQUEST PROCESSING :: ExceptionServlet.doFilter()");
+		System.out.println("REQUEST PROCESSING :: TargetServlet.doFilter()");
 		PrintWriter out = response.getWriter();
-		out.println(10/0);
+		out.println("<h1 style='color:green; text-align:center;'>RESPONSE FROM TARGET SERVLET....</h1>");
+		
+	}
+	
+	public void destroy() {
+		System.out.println("DEINSTANTIATION :: TargetServlet.destroy()...");
 	}
 
 }
