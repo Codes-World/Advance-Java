@@ -1,0 +1,72 @@
+package in.codesworld.aman.main;
+
+
+import java.util.List;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
+
+import in.codesworld.aman.bean.InsurancePolicy;
+import in.codesworld.aman.util.HibernateUtil;
+
+public class NativeSQLApp {
+
+	@SuppressWarnings("unchecked")
+	public static void main(String[] args) {
+		Session session = null;
+		
+
+		try {
+			
+			//EntityQuery-> NATIVESQL QUERY WITH MAPPING TO ENTITY CLASS
+			session = HibernateUtil.getSession();
+			NativeQuery<InsurancePolicy> query1 = session.createSQLQuery("select * from insurancePolicy where tenure>=:max1 and tenure<=:max2");
+			
+			//setting the value to  namedparameter(max1 and max2)
+			query1.setParameter("max1", 5);
+			query1.setParameter("max2", 25);
+			
+			//mapping the table to Entity class
+			query1.addEntity(InsurancePolicy.class);
+			
+			//execute the query and get the Result
+			List<InsurancePolicy> list = query1.getResultList();
+			list.forEach(System.out::println);
+			
+			System.out.println("\n*****************************************************\n");
+			
+			//EntityQuery-> NATIVESQL QUERY WITHOUT MAPPING TO ENTITY CLASS
+			session = HibernateUtil.getSession();
+			NativeQuery<Object[]> query2 = session.createSQLQuery("select * from insurancePolicy where tenure>=:max1 and tenure<=:max2");
+			
+			//setting the value to  namedparameter(max1 and max2)
+			query2.setParameter("max1", 5);
+			query2.setParameter("max2", 25);
+			
+			
+			//execute the query and get the Result
+			List<Object[]> objects = query2.getResultList();
+			objects.forEach(object-> {
+				for(Object data : object) {
+					System.out.print(data+" ");
+				}
+				System.out.println();
+			});
+			
+			
+		} catch (HibernateException he) {
+			he.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			HibernateUtil.closeSessionFactory();
+			if (session != null) {
+				session.close();
+			}
+		}
+
+	}
+
+}
