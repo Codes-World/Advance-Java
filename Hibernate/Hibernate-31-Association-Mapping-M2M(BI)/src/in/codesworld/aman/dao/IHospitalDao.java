@@ -7,7 +7,4 @@ public interface IHospitalDao {
 	
 	//performing select operation using parent
 	public void loadRecordUsingParent();
-	public void loadRecordUsingChild();
-	
-	
 }
